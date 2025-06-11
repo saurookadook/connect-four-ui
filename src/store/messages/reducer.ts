@@ -4,8 +4,8 @@ import {
   LOAD_MESSAGES, // force formatting
   RECEIVE_MESSAGE,
   SEND_MESSAGE,
-} from '@src/store/actionTypes';
-import { Message } from '@src/types/main';
+} from '@/store/actionTypes';
+import { Message } from '@/types/main';
 
 export type MessagesStateSlice = {
   allItems: Message[];

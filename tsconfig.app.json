@@ -7,7 +7,7 @@
         "lib": ["ESNEXT", "DOM", "DOM.Iterable"],
         "module": "ESNext",
         "paths": {
-            "@src/*": ["./src/*"],
+            "@/*": ["./src/*"],
             "@ConnectFour/*": ["./src/pages/ConnectFour/*"]
         }
     },

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { FlexColumn, FlexColumnProps, FlexRow } from '@src/layouts';
-import type { Message } from '@src/types/main';
+import { FlexColumn, FlexColumnProps, FlexRow } from '@/layouts';
+import type { Message } from '@/types/main';
 
 type MessageLogContainerProps = FlexColumnProps & {
   messageConfigs: Message[];

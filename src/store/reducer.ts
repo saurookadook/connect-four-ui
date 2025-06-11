@@ -3,11 +3,11 @@ import combineReducers from '@saurookkadookk/react-utils-combine-reducers';
 import connectFourReducer, {
   type ConnectFourStateSlice,
   initialConnectFourStateSlice,
-} from '@src/store/connect-four/reducer';
+} from '@/store/connect-four/reducer';
 import messagesReducer, {
   type MessagesStateSlice,
   initialMessagesStateSlice,
-} from '@src/store/messages/reducer';
+} from '@/store/messages/reducer';
 
 export type AppState = {
   connectFour: ConnectFourStateSlice;

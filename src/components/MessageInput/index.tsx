@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-import { setSendMessage } from '@src/store/actions';
-import { useAppStore } from '@src/store';
-import { ws } from '@src/utils';
-import type { Message } from '@src/types/main';
+import { setSendMessage } from '@/store/actions';
+import { useAppStore } from '@/store';
+import { ws } from '@/utils';
+import type { Message } from '@/types/main';
 
 export function MessageInput() {
   const { appDispatch } = useAppStore();

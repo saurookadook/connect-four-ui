@@ -3,8 +3,8 @@ import {
   type RouteObject,
 } from 'react-router-dom';
 
-import { Root } from '@src/layouts';
-import { ConnectFour, Home, Login, MatchHistory } from '@src/pages';
+import { Root } from '@/layouts';
+import { ConnectFour, Home, Login, MatchHistory } from '@/pages';
 
 export const routerConfig: RouteObject[] = [
   {

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { routerConfig } from '@src/app/browserRouter';
+import { routerConfig } from '@/app/browserRouter';
 
 export function TopNavBar() {
   return (

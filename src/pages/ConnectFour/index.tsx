@@ -1,5 +1,5 @@
-import { FlexColumn, FlexRow } from '@src/layouts';
-import { useAppStore } from '@src/store';
+import { FlexColumn, FlexRow } from '@/layouts';
+import { useAppStore } from '@/store';
 import { Board } from './components';
 import './styles.css';
 

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useReducer } from 'react';
 
-import { AppStateContext, AppDispatchContext } from '@src/store/contexts';
-import combinedReducer, { AppState, initialAppState } from '@src/store/reducer';
-import { deeplyMerge } from '@src/utils';
+import { AppStateContext, AppDispatchContext } from '@/store/contexts';
+import combinedReducer, { AppState, initialAppState } from '@/store/reducer';
+import { deeplyMerge } from '@/utils';
 
 export function AppStateProvider({
   children,

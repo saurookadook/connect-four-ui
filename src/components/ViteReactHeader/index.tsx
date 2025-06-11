@@ -1,4 +1,4 @@
-import { ReactLogo, ViteLogo } from '@src/components';
+import { ReactLogo, ViteLogo } from '@/components';
 
 export function ViteReactHeader() {
   return (

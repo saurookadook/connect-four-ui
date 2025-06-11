@@ -1,7 +1,7 @@
 import { Dispatch, createContext } from 'react';
 import combineReducers from '@saurookkadookk/react-utils-combine-reducers';
 
-import { type AppState, initialAppState } from '@src/store/reducer';
+import { type AppState, initialAppState } from '@/store/reducer';
 
 export type AppDispatch = Dispatch<combineReducers.ReducerAction<unknown>>;
 

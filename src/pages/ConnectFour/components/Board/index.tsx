@@ -6,9 +6,9 @@ import {
   PlayerColor,
   BOARD_ROWS,
   BOARD_COLS,
-} from '@src/pages/ConnectFour/constants';
-import { setActivePlayer } from '@src/store/connect-four/actions';
-import { useAppStore } from '@src/store';
+} from '@/pages/ConnectFour/constants';
+import { setActivePlayer } from '@/store/connect-four/actions';
+import { useAppStore } from '@/store';
 import './styles.css';
 
 function createEmptyBoard() {

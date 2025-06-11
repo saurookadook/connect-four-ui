@@ -1,7 +1,7 @@
 import combineReducers from '@saurookkadookk/react-utils-combine-reducers';
 
 import { PlayerColor } from '@ConnectFour/constants';
-import { RESET_GAME, SET_ACTIVE_PLAYER } from '@src/store';
+import { RESET_GAME, SET_ACTIVE_PLAYER } from '@/store';
 
 export type ConnectFourStateSlice = {
   activePlayer: PlayerColor;

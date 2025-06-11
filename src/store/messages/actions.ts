@@ -2,8 +2,8 @@ import {
   LOAD_MESSAGES, // force formatting
   RECEIVE_MESSAGE,
   SEND_MESSAGE,
-} from '@src/store';
-import type { BaseAction, Message } from '@src/types/main';
+} from '@/store';
+import type { BaseAction, Message } from '@/types/main';
 
 export function setLoadMessages({
   dispatch, // force formatting

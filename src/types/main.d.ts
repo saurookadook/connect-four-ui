@@ -1,4 +1,4 @@
-import { AppDispatch } from '@src/store';
+import { AppDispatch } from '@/store';
 
 export type Message = {
   content: string;
