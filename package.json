@@ -9,9 +9,7 @@
     },
     "packageManager": "pnpm@9.15.3",
     "workspaces": [
-        "client/*",
-        "packages/*",
-        "server/*"
+        "packages/*"
     ],
     "scripts": {
         "dev": "vite",
@@ -19,7 +17,6 @@
         "lint": "eslint .",
         "preview": "vite preview",
         "client:start": "vite build && pnpm vite",
-        "wss:start": "lerna run start:wss:dev --scope web-socket-server",
         "test": "vitest",
         "test:w": "vitest --watchAll",
         "test:cov": "vitest --coverage"
