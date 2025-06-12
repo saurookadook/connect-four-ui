@@ -16,10 +16,10 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/connect': {
-        target: 'ws://localhost:8080',
+      '/connect-ws': {
+        target: 'ws://localhost:8090',
         ws: true,
-        rewrite: (path) => path.replace(/^\/connect/, ''),
+        rewrite: (path) => path.replace(/^\/connect-ws/, ''),
       },
     },
   },

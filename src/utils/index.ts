@@ -1,7 +1,10 @@
 let ws: WebSocket;
 
+// see proxy settings in vite.config.ts
+const WS_CONNECTION_URL = 'ws://localhost:8090/connect-ws';
+
 try {
-  ws = new WebSocket('ws://localhost:8080/connect');
+  ws = new WebSocket(WS_CONNECTION_URL);
 
   ws.addEventListener('open', (event) => {
     console.log(
@@ -22,13 +25,24 @@ try {
   console.error('ERROR creating WebSocket instance', error);
 }
 
-const closeWSConn = () => {
-  console.log(
-    '    [WebSocket] Closing WebSocket connection    '.padStart(60, '-').padEnd(120, '-'),
-  );
-  ws.close();
+const openWSConn = () => {
+  if (ws == null) {
+    ws = new WebSocket(WS_CONNECTION_URL);
+  }
+  return ws;
 };
 
-export { ws, closeWSConn };
+const closeWSConn = () => {
+  if (ws != null && (ws.readyState === ws.OPEN || ws.readyState === ws.CONNECTING)) {
+    console.log(
+      '    [WebSocket] Closing WebSocket connection    '.padStart(60, '-').padEnd(120, '-'),
+    );
+    ws.close();
+    // @ts-expect-error: This is on purpose :]
+    ws = null;
+  }
+};
+
+export { ws, openWSConn, closeWSConn };
 export * from './deeplyMerge';
 export * from './typeGuards';
