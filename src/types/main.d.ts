@@ -10,3 +10,17 @@ export type Message = {
 export type BaseAction = {
   dispatch: AppDispatch;
 };
+
+// connect-four
+export enum GameSessionStatus {
+  ABANDONED = 'ABANDONED',
+  ACTIVE = 'ACTIVE',
+  COMPLETED = 'COMPLETED',
+}
+
+export type GameSessionHistoryItem = {
+  gameSessionID: string;
+  status: GameSessionStatus;
+  playerOneID: string;
+  playerTwoID: string;
+};
