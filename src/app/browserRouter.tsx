@@ -4,7 +4,7 @@ import {
 } from 'react-router-dom';
 
 import { Root } from '@/layouts';
-import { ConnectFour, Home, Login, MatchHistory } from '@/pages';
+import { ConnectFour, GameSessionHistory, Home, Login } from '@/pages';
 
 export const routerConfig: RouteObject[] = [
   {
@@ -33,10 +33,10 @@ export const routerConfig: RouteObject[] = [
         element: <Login />,
       },
       {
-        path: 'match-history',
+        path: 'game-session-history',
         // @ts-expect-error: I hope this is just temporarily missing
-        label: 'Match History',
-        element: <MatchHistory />,
+        label: 'Game Session History',
+        element: <GameSessionHistory />,
       },
       {
         path: 'connect-four',

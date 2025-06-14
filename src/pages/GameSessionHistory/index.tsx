@@ -1,7 +1,7 @@
-export function MatchHistory() {
+export function GameSessionHistory() {
   return (
-    <div id="match-history">
-      <h2>{`🗒️ Match History 🗒️`}</h2>
+    <div id="game-session-history">
+      <h2>{`🗒️ Game Session History 🗒️`}</h2>
 
       <span>
         🚧 <b>Under Construction</b> 🚧
