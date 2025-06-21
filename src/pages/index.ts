@@ -1,4 +1,4 @@
 export * from './ConnectFour';
 export * from './Home';
 export * from './GameSessionHistory';
-export * from './Login';
+export * from './Player/playerPages';
