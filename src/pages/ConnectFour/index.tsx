@@ -2,12 +2,15 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { FlexColumn, FlexRow } from '@/layouts';
 import { useAppStore } from '@/store';
-import { Board } from './components';
 import { ws } from '@/utils';
+import { Board } from '@ConnectFour/components';
+import { useLoadGame } from '@ConnectFour/utils/hooks';
 import './styles.css';
 
 export function ConnectFour() {
   const { appState, appDispatch } = useAppStore();
+  const [gameSessionID, setGameSessionID] = useState<string | null>(null);
+  const [playerID, setPlayerID] = useState<string | null>(null);
   const [wsData, setWsData] = useState<unknown[]>([]);
 
   const wsMessageHandler = useCallback(
@@ -24,16 +27,26 @@ export function ConnectFour() {
     // [appDispatch],
   );
 
-  useEffect(() => {
-    ws.addEventListener('message', wsMessageHandler);
+  function handleSendMessage() {
     ws.send(
       JSON.stringify({
-        event: 'test',
+        event: 'health-check',
         data: {
-          message: 'Hello, world!',
+          message: '[client] Hello, world!',
         },
       }),
     );
+  }
+
+  useLoadGame({
+    gameSessionID,
+    setGameSessionID,
+    playerID,
+    setPlayerID,
+  });
+
+  useEffect(() => {
+    ws.addEventListener('message', wsMessageHandler);
 
     return () => {
       ws.removeEventListener('message', wsMessageHandler);
@@ -43,6 +56,9 @@ export function ConnectFour() {
   return (
     <section id="connect-four">
       <h2>{`🔴 ⚫ Connect Four 🔴 ⚫`}</h2>
+      <div>{playerID != null && <span>{`Player ID: ${playerID}`}</span>}</div>
+
+      <button onClick={handleSendMessage}>Send WS Message</button>
 
       <div>
         <pre>
