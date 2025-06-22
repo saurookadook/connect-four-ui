@@ -4,7 +4,7 @@ import {
 } from 'react-router-dom';
 
 import { Root } from '@/layouts';
-import { ConnectFour, GameSessionHistory, Home, Login } from '@/pages';
+import { ConnectFour, GameSessionHistory, Home, Login, Register } from '@/pages';
 
 export const routerConfig: RouteObject[] = [
   {
@@ -27,10 +27,19 @@ export const routerConfig: RouteObject[] = [
         element: <Home />,
       },
       {
+        // TODO: make this page conditionally render Login/Register
+        // or maybe consolidate into auth portal?
         path: 'login',
         // @ts-expect-error: I hope this is just temporarily missing
         label: 'Login',
         element: <Login />,
+      },
+      {
+        // TODO: make this page conditionally render Login/Register
+        path: 'register',
+        // @ts-expect-error: I hope this is just temporarily missing
+        label: 'Register',
+        element: <Register />,
       },
       {
         path: 'game-session-history',
