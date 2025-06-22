@@ -18,3 +18,7 @@ export const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 // export const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
 // export const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
+
+// player
+export const REGISTER_NEW_PLAYER = 'REGISTER_NEW_PLAYER';
+export const LOG_IN_PLAYER = 'LOG_IN_PLAYER';
