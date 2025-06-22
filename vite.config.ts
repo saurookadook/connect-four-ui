@@ -24,10 +24,12 @@ export default defineConfig({
     },
   },
   test: {
+    environment: 'jsdom',
     // globals: true,
     include: [
       '**/*.{test,spec}.{js,jsx,ts,tsx}', // force formatting
       '**/__tests__/**/*.{ts,tsx}',
     ],
+    setupFiles: ['./vitest.setup.ts'],
   },
 });
