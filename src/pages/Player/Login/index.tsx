@@ -1,35 +1,44 @@
 import { FlexColumn } from '@/layouts';
-
-const inputSize = 40;
+import { BaseInput } from '../components';
+import { getFormData } from '../utils';
 
 // 🔒 🔓
 export function Login() {
+  function handleOnSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    // console.log('    Login.handleOnSubmit    '.padStart(100, '=').padEnd(180, '='));
+    // console.log('    event:');
+    // console.dir(event);
+    // console.log('    target:');
+    // console.dir(event.target);
+    // console.log('='.repeat(180));
+    const formData = getFormData(event.target as HTMLFormElement);
+    // TODO: add further error/invalid handling
+
+    // TODO: dispatch action :]
+  }
+
   return (
     <div id="login">
       <h2>{`Connect Four: Player Login`}</h2>
 
-      <form>
+      <form onSubmit={handleOnSubmit}>
         <FlexColumn>
           <label htmlFor="username">Username</label>
-          <input
-            type="text"
+          <BaseInput
+            type="text" // force formatting
             id="username"
             name="username"
-            required
-            minLength={4}
             maxLength={8}
-            size={inputSize}
           />
 
           <label htmlFor="password">Password</label>
-          <input
-            type="password"
+          <BaseInput
+            type="password" // force formatting
             id="password"
             name="password"
-            required
-            minLength={4}
+            minLength={8}
             maxLength={30}
-            size={inputSize}
           />
 
           <button type="submit">Log In</button>
