@@ -24,6 +24,13 @@
   --black-fill-0\.5: rgb(0 0 0 / 0.5);
 
   --light-gray-edge: rgb(238 238 238 / 0.75);
+
+  --error: #dc3545;
+  --warning: #ffc107;
+  --info: #0dcaf0;
+  --success: #198754;
+  /* --error: #ff0033; */
+  /* --success: #22bb33; */
 }
 
 a {

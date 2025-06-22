@@ -1,15 +1,32 @@
 import * as React from 'react';
+import classNames from 'classnames';
 
-const usernamePattern = /^[a-zA-Z0-9_]{5,24}$/;
-const passwordPattern = /^[A-Za-z0-9!@#$%^&*\-_]{8,30}$/;
+import './styles.css';
 
+const usernamePattern = {
+  asRegExp: /^[a-zA-Z0-9_]{5,24}$/,
+  asString: '^[a-zA-Z0-9_]{5,24}$',
+};
+const passwordPattern = {
+  asRegExp: /^[A-Za-z0-9!@#$%^&*\-_]{8,30}$/,
+  asString: '^[A-Za-z0-9!@#$%^&*\\-_]{8,30}$',
+};
+
+/**
+ * @TODO
+ * - improve constraint validation messages _(see doc page on
+ * {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation | Constraint Validation})_
+ * - add instructions for username and password requirements
+ */
 function BaseInputEl(
   props: React.InputHTMLAttributes<HTMLInputElement>,
   ref: React.Ref<HTMLInputElement>,
 ) {
   const {
+    className = '',
     minLength = 5, // force formatting
     pattern = null,
+    placeholder = ' ',
     required = true,
     size = 40,
     ...nativeProps
@@ -19,9 +36,9 @@ function BaseInputEl(
     if (pattern) {
       return pattern;
     } else if (nativeProps.type === 'text' && nativeProps.name === 'username') {
-      return usernamePattern.toString();
+      return usernamePattern.asString;
     } else if (nativeProps.type === 'password') {
-      return passwordPattern.toString();
+      return passwordPattern.asString;
     }
 
     return;
@@ -30,8 +47,10 @@ function BaseInputEl(
   return (
     <input
       {...nativeProps} // force formatting
+      className={classNames('base-input', className)}
       minLength={minLength}
       pattern={patternProp}
+      placeholder={placeholder}
       required={required}
       size={size}
       ref={ref}
@@ -51,6 +70,7 @@ function BaseInputEl(
  * // `type="password"` and `name="password"`
  * /^[A-Za-z0-9!@#$%^&*\-_]{8,30}$/
  * ```
+ * @param props.placeholder Default: `' '` _(empty space)_
  * @param props.required Default: `true`
  * @param props.size Default: `40`
  * @param ref
