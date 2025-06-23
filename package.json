@@ -17,7 +17,7 @@
         "lint": "eslint .",
         "preview": "vite preview",
         "client:start": "vite build && pnpm vite",
-        "test": "vitest",
+        "test": "vitest --watch=false",
         "test:w": "vitest --watchAll",
         "test:cov": "vitest --coverage"
     },

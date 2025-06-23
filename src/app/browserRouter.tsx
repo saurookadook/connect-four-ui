@@ -10,8 +10,9 @@ export const routerConfig: RouteObject[] = [
   {
     path: '/',
     element: <Root />,
+    HydrateFallback: () => null,
     loader: async ({ request }) => {
-      if (window.location.pathname === '/') {
+      if (window != null && window.location?.pathname === '/') {
         const homeUrl = new URL(request.url);
         homeUrl.pathname = '/home';
 

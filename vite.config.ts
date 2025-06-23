@@ -30,6 +30,9 @@ export default defineConfig({
       '**/*.{test,spec}.{js,jsx,ts,tsx}', // force formatting
       '**/__tests__/**/*.{ts,tsx}',
     ],
+    sequence: {
+      hooks: 'list',
+    },
     setupFiles: ['./vitest.setup.ts'],
   },
 });
