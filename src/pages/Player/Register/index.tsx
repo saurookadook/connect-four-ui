@@ -1,11 +1,14 @@
 import { useRef } from 'react';
 
 import { FlexColumn } from '@/layouts';
+import { useAppStore } from '@/store';
+import { registerNewPlayer } from '@/store/actions';
 import { BaseInput } from '../components';
 import { getFormData } from '../utils';
 
 // 🔒 🔓
 export function Register() {
+  const { appDispatch } = useAppStore();
   const formRef = useRef<HTMLFormElement>(null);
 
   function handleOnSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -27,13 +30,24 @@ export function Register() {
     }
 
     // TODO: dispatch action :]
+    registerNewPlayer({
+      dispatch: appDispatch,
+      username: formData.username.value,
+      password: formData.password.value,
+    });
   }
 
   return (
     <div id="register">
       <h2>{`Connect Four: New Player Registration`}</h2>
 
-      <form onSubmit={handleOnSubmit} ref={formRef}>
+      <form
+        onSubmit={handleOnSubmit}
+        ref={formRef}
+        // NOTE: `role` is only needed until a bug in testing-library is fixed
+        // - https://github.com/testing-library/dom-testing-library/issues/1293
+        role="form"
+      >
         <FlexColumn>
           <label htmlFor="username">Username</label>
           <BaseInput
