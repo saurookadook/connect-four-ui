@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { FlexColumn } from '@/layouts';
 import { useAppStore } from '@/store';
@@ -8,20 +9,20 @@ import { getFormData } from '../utils';
 
 // 🔒 🔓
 export function Register() {
+  const navigate = useNavigate();
   const { appDispatch } = useAppStore();
   const formRef = useRef<HTMLFormElement>(null);
 
   function handleOnSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    // console.log('    Register.handleOnSubmit    '.padStart(100, '=').padEnd(180, '='));
-    // console.log('    event:');
-    // console.dir(event);
-    // console.log('    target:');
-    // console.dir(event.target);
-    // console.log('='.repeat(180));
-    const formData = getFormData(event.target as HTMLFormElement);
+    const {
+      username, // force formatting
+      password,
+      confirmPassword,
+    } = getFormData(event.target as HTMLFormElement);
+
     // TODO: add further error/invalid handling
-    if (formData.password !== formData.confirmPassword) {
+    if (password.value !== confirmPassword.value) {
       // @ts-expect-error: TypeScript doesn't like this :]
       formRef.current.elements['confirm-password'].setCustomValidity(
         'Password fields must be identical.',
@@ -29,11 +30,17 @@ export function Register() {
       return;
     }
 
-    // TODO: dispatch action :]
-    registerNewPlayer({
+    return registerNewPlayer({
       dispatch: appDispatch,
-      username: formData.username.value,
-      password: formData.password.value,
+      username: username.value,
+      password: password.value,
+    }).then((actionResult) => {
+      if (actionResult.error) {
+        console.error('Registration failed:', actionResult.error);
+        return;
+      }
+
+      return navigate('/connect-four');
     });
   }
 

@@ -28,7 +28,7 @@ async function handleAuthRequest({
   let responseData;
 
   try {
-    const requestURL = new URL(requestPath);
+    const requestURL = new URL(requestPath, window.location.origin);
     const response = await fetch(requestURL, {
       method: 'POST',
       headers: {

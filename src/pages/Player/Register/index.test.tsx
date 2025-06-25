@@ -1,12 +1,35 @@
-import { beforeAll, describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import {
+  afterAll, // force formatting
+  beforeEach,
+  describe,
+  it,
+  expect,
+  vi,
+} from 'vitest';
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-import { WithMemoryRouter } from '@/utils/testing';
-import { expectRegisterFormToBeCorrectAndVisible } from '../testUtils';
-import { Register } from './index';
+import { mockFirstPlayer } from '@/__mocks__/playerMocks';
+import { createFetchMock, WithMemoryRouter } from '@/utils/testing';
+import {
+  expectRegisterFormToBeCorrectAndVisible, // force formatting
+  getInput,
+} from '../testUtils';
 
 describe('Register Page', () => {
-  it('render the Register page', async () => {
+  // @ts-expect-error: I know the type doesn't match exactly but that's ok :]
+  const fetchMock = vi.spyOn(window, 'fetch').mockImplementation(createFetchMock());
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  afterAll(() => {
+    fetchMock.mockRestore();
+    vi.clearAllMocks();
+  });
+
+  it('renders correctly', async () => {
     render(<WithMemoryRouter initialEntries={['/register']} />);
 
     expect(
@@ -18,5 +41,46 @@ describe('Register Page', () => {
 
     const formEl = await screen.findByRole('form');
     expectRegisterFormToBeCorrectAndVisible(formEl);
+  });
+
+  describe('form submission', () => {
+    beforeEach(() => {
+      vi.clearAllMocks();
+      cleanup();
+    });
+
+    it('handles valid form submissions', async () => {
+      const user = userEvent.setup();
+      const { container } = render(<WithMemoryRouter initialEntries={['/register']} />);
+
+      expect(
+        await screen.findByRole('heading', {
+          level: 2,
+          name: 'Connect Four: New Player Registration',
+        }),
+      ).toBeVisible();
+
+      const formEl = await screen.findByRole('form');
+      expectRegisterFormToBeCorrectAndVisible(formEl);
+
+      const usernameInput = getInput(formEl, 'Username');
+      const passwordInput = getInput(formEl, 'Password');
+      const confirmPasswordInput = getInput(formEl, 'Confirm Password');
+
+      await user.type(usernameInput, mockFirstPlayer.username);
+      await user.type(passwordInput, mockFirstPlayer.unhashedPassword);
+      await user.type(confirmPasswordInput, mockFirstPlayer.unhashedPassword);
+
+      // await user.click(getButtonByRole(formEl, 'Register'));
+      fireEvent.submit(formEl);
+
+      let connectFourPage;
+      await waitFor(() => {
+        connectFourPage = container.querySelector('section#connect-four');
+        expect(connectFourPage).not.toBeNull();
+      });
+
+      expect(connectFourPage).toBeVisible();
+    });
   });
 });
