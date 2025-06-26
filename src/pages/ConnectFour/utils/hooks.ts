@@ -1,5 +1,7 @@
 import { useEffect, type Dispatch, type SetStateAction } from 'react';
 
+import { GAME_SESSION_LS_KEY, PLAYER_DETAILS_LS_KEY } from '../constants';
+
 type SetStateFunction = Dispatch<SetStateAction<string | null>>;
 
 export function useLoadGame({
@@ -18,14 +20,11 @@ export function useLoadGame({
       return;
     }
 
-    const storedPlayerID = window.localStorage.getItem('cfPlayerID');
+    const storedPlayerDetails = window.localStorage.getItem(PLAYER_DETAILS_LS_KEY);
 
-    if (storedPlayerID != null) {
-      setPlayerID(storedPlayerID);
-    } else {
-      const newPlayerId = window.crypto.randomUUID();
-      window.localStorage.setItem('cfPlayerID', newPlayerId);
-      setPlayerID(newPlayerId);
+    if (storedPlayerDetails != null) {
+      const parsedDetails = JSON.parse(storedPlayerDetails);
+      setPlayerID(parsedDetails.playerID);
     }
   }, [playerID, setPlayerID]);
 
@@ -34,13 +33,16 @@ export function useLoadGame({
       return;
     }
 
-    const storedGameSessionID = window.localStorage.getItem('cfGameSessionID');
+    const storedGameSession = window.localStorage.getItem(GAME_SESSION_LS_KEY);
 
-    if (storedGameSessionID != null) {
-      setGameSessionID(storedGameSessionID);
+    if (storedGameSession != null) {
+      const parsedDetails = JSON.parse(storedGameSession);
+      setGameSessionID(parsedDetails.id);
     } else {
+      // TODO: remove this once session endpoints are hooked up
       const newGameSessionID = window.crypto.randomUUID();
-      window.localStorage.setItem('cfGameSessionID', newGameSessionID);
+      const stringifiedDetails = JSON.stringify({ id: newGameSessionID });
+      window.localStorage.setItem(GAME_SESSION_LS_KEY, stringifiedDetails);
       setGameSessionID(newGameSessionID);
     }
   }, [gameSessionID, setGameSessionID]);

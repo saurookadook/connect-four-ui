@@ -1,5 +1,33 @@
-import { REGISTER_NEW_PLAYER, LOG_IN_PLAYER } from '../actionTypes';
+import { BASE_API_SERVER_URL } from '@/constants';
+import { PLAYER_DETAILS_LS_KEY } from '@/pages/ConnectFour/constants';
 import type { BaseAction } from '@/types/main';
+import { REGISTER_NEW_PLAYER, LOG_IN_PLAYER } from '../actionTypes';
+
+type AuthResponseData = {
+  message: string;
+  playerID?: string;
+  playerObjectID?: string;
+  statusCode: number;
+  username?: string;
+};
+
+function updateBrowserSession(responseData: AuthResponseData) {
+  // TMP: using localStorage until api supports session-based auth
+  const isSuccess = [
+    responseData.playerID,
+    responseData.playerObjectID,
+    responseData.username,
+  ].every((n) => n != null);
+
+  if (isSuccess) {
+    const stringifiedDetails = JSON.stringify({
+      playerID: responseData.playerID,
+      playerObjectID: responseData.playerObjectID,
+      username: responseData.username,
+    });
+    window.localStorage.setItem(PLAYER_DETAILS_LS_KEY, stringifiedDetails);
+  }
+}
 
 async function handleAuthRequest({
   dispatch,
@@ -8,16 +36,16 @@ async function handleAuthRequest({
 }: BaseAction & {
   actionType: typeof REGISTER_NEW_PLAYER | typeof LOG_IN_PLAYER;
   playerDetails: { username: string; password: string };
-}) {
+}): Promise<AuthResponseData> {
   const { errorMessage, requestPath } = (function () {
     if (actionType === REGISTER_NEW_PLAYER) {
       return {
-        requestPath: '/auth/register',
+        requestPath: '/api/auth/register',
         errorMessage: 'Encountered ERROR while registering new player:',
       };
     } else if (actionType === LOG_IN_PLAYER) {
       return {
-        requestPath: '/auth/login',
+        requestPath: '/api/auth/login',
         errorMessage: 'Encountered ERROR while logging in:',
       };
     } else {
@@ -28,7 +56,7 @@ async function handleAuthRequest({
   let responseData;
 
   try {
-    const requestURL = new URL(requestPath, window.location.origin);
+    const requestURL = new URL(requestPath, BASE_API_SERVER_URL);
     const response = await fetch(requestURL, {
       method: 'POST',
       headers: {
@@ -41,16 +69,22 @@ async function handleAuthRequest({
     });
 
     if (!response.ok) {
-      throw new Error(response.statusText);
+      throw new Error(
+        response.statusText || `Unkonwn error handling auth request to '${requestPath}'`,
+      );
     }
 
     responseData = await response.json();
-  } catch (error: unknown) {
+  } catch (error) {
     console.error(errorMessage, error);
     responseData = {
-      error: error,
+      error,
+      message: errorMessage,
+      statusCode: 400,
     };
   }
+
+  updateBrowserSession(responseData);
 
   dispatch({
     type: actionType,
