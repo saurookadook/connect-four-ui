@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { FlexColumn } from '@/layouts';
 import { useAppStore } from '@/store';
@@ -8,25 +9,31 @@ import { getFormData } from '../utils';
 
 // 🔒 🔓
 export function Login() {
+  const navigate = useNavigate();
   const { appDispatch } = useAppStore();
   const formRef = useRef<HTMLFormElement>(null);
 
   function handleOnSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    // console.log('    Login.handleOnSubmit    '.padStart(100, '=').padEnd(180, '='));
-    // console.log('    event:');
-    // console.dir(event);
-    // console.log('    target:');
-    // console.dir(event.target);
-    // console.log('='.repeat(180));
-    const formData = getFormData(event.target as HTMLFormElement);
+
+    const {
+      username, // force formatting
+      password,
+    } = getFormData(event.target as HTMLFormElement);
+
     // TODO: add further error/invalid handling
 
-    // TODO: dispatch action :]
-    logInPlayer({
+    return logInPlayer({
       dispatch: appDispatch,
-      username: formData.username.value,
-      password: formData.password.value,
+      username: username.value,
+      password: password.value,
+    }).then((actionResult) => {
+      if (actionResult.statusCode >= 400) {
+        console.error(`Login failed: ${actionResult.message}`);
+        return;
+      }
+
+      return navigate('/connect-four');
     });
   }
 
