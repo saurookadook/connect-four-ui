@@ -16,6 +16,10 @@ import {
   getInput,
 } from '../testUtils';
 
+function RegisterWithRouter() {
+  return <WithMemoryRouter initialEntries={['/register']} />;
+}
+
 describe('Register Page', () => {
   // @ts-expect-error: I know the type doesn't match exactly but that's ok :]
   const fetchMock = vi.spyOn(window, 'fetch').mockImplementation(createFetchMock());
@@ -30,7 +34,7 @@ describe('Register Page', () => {
   });
 
   it('renders correctly', async () => {
-    render(<WithMemoryRouter initialEntries={['/register']} />);
+    render(<RegisterWithRouter />);
 
     expect(
       await screen.findByRole('heading', {
@@ -51,7 +55,7 @@ describe('Register Page', () => {
 
     it('handles valid form submissions', async () => {
       const user = userEvent.setup();
-      const { container } = render(<WithMemoryRouter initialEntries={['/register']} />);
+      const { container } = render(<RegisterWithRouter />);
 
       expect(
         await screen.findByRole('heading', {
