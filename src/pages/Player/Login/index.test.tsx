@@ -8,7 +8,6 @@ import {
   expectLoginFormToBeCorrectAndVisible, // force formatting
   getInput,
 } from '../testUtils';
-import { Login } from './index';
 
 function LoginWithRouter() {
   return <WithMemoryRouter initialEntries={['/login']} />;

@@ -54,7 +54,7 @@ export function Login() {
             type="text" // force formatting
             id="username"
             name="username"
-            maxLength={8}
+            maxLength={24}
           />
 
           <label htmlFor="password">Password</label>
