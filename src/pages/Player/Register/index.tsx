@@ -15,6 +15,7 @@ export function Register() {
 
   function handleOnSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
     const {
       username, // force formatting
       password,

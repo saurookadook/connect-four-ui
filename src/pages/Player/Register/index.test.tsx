@@ -2,8 +2,8 @@ import {
   afterAll, // force formatting
   beforeEach,
   describe,
-  it,
   expect,
+  it,
   vi,
 } from 'vitest';
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
@@ -82,5 +82,7 @@ describe('Register Page', () => {
 
       expect(connectFourPage).toBeVisible();
     });
+
+    // TODO: add error cases
   });
 });

@@ -60,7 +60,7 @@ function handlePostRequest(url: string, options: RequestInit) {
   const status = responseData?.statusCode || 200;
 
   return Promise.resolve({
-    ok: status >= 200 && status < 400,
+    ok: status >= 200 && status < 500,
     status: status,
     headers: {
       'Content-Type': 'application/json',
