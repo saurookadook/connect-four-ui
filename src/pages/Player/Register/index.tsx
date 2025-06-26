@@ -36,8 +36,8 @@ export function Register() {
       username: username.value,
       password: password.value,
     }).then((actionResult) => {
-      if (actionResult.error) {
-        console.error('Registration failed:', actionResult.error);
+      if (actionResult.statusCode >= 400) {
+        console.error(`Registration failed: ${actionResult.message}`);
         return;
       }
 
