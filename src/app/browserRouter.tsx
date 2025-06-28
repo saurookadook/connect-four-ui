@@ -6,6 +6,11 @@ import {
 import { Root } from '@/layouts';
 import { ConnectFour, GameSessionHistory, Home, Login, Register } from '@/pages';
 
+/**
+ * @note possibilities for implementing protected/public routes
+ * - https://github.com/remix-run/react-router/issues/10637#issuecomment-1802180978
+ * - https://medium.com/@umaishassan/private-protected-and-public-routes-in-react-router-v6-e8fb623aa81
+ */
 export const routerConfig: RouteObject[] = [
   {
     path: '/',
