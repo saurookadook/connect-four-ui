@@ -5,6 +5,8 @@ import react from '@vitejs/plugin-react';
 
 const __dirname = path.resolve();
 
+const { SERVER_PORT } = process.env;
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
@@ -16,6 +18,9 @@ export default defineConfig({
   },
   server: {
     proxy: {
+      '/api': {
+        target: `http://localhost:${SERVER_PORT}`,
+      },
       '/connect-ws': {
         target: 'ws://localhost:8090',
         ws: true,
@@ -24,10 +29,15 @@ export default defineConfig({
     },
   },
   test: {
+    environment: 'jsdom',
     // globals: true,
     include: [
       '**/*.{test,spec}.{js,jsx,ts,tsx}', // force formatting
       '**/__tests__/**/*.{ts,tsx}',
     ],
+    sequence: {
+      hooks: 'list',
+    },
+    setupFiles: ['./vitest.setup.ts'],
   },
 });

@@ -21,3 +21,6 @@ export type GameBoard = BoardColumns[];
 
 export const BOARD_ROWS = 6;
 export const BOARD_COLS = 7;
+
+export const GAME_SESSION_LS_KEY = 'cfGameSession';
+export const PLAYER_DETAILS_LS_KEY = 'cfPlayerDetails';
