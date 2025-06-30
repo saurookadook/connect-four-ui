@@ -14,7 +14,7 @@ export async function fetchGameSessionHistory({
   let responseData = null;
 
   try {
-    const response = await fetch(`/game-sessions/${playerID}`);
+    const response = await fetch(`/game-session/history/${playerID}`);
 
     if (!response.ok || response.status >= 400) {
       throw new Error(`[ERROR ${response.status}] Failed to fetch game session history`);
