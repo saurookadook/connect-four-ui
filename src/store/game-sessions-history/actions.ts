@@ -17,7 +17,7 @@ export async function fetchGameSessionsHistory({
   try {
     // TODO: break `all` and `history` calls into separate actions
     const requestPath =
-      playerID != null ? `/game-sessions/history/${playerID}` : '/game-sessions/all';
+      playerID != null ? `/api/game-sessions/history/${playerID}` : '/api/game-sessions/all';
     const requestURL = new URL(requestPath, BASE_API_SERVER_URL);
     const response = await fetch(requestURL);
 

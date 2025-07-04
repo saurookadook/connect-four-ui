@@ -47,7 +47,7 @@ const sessions: CombinedGameSessionsHistoryStateSlice['sessions'] = [
   (stateSlice, action) => {
     switch (action.type) {
       case SET_GAME_SESSIONS_HISTORY:
-        return action.payload.sessions || [];
+        return action.payload.gameSessionsHistory.sessions || [];
       default:
         return stateSlice;
     }

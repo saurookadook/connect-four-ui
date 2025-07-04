@@ -19,7 +19,7 @@ export enum GameSessionStatus {
 }
 
 export type GameSessionsHistoryItem = {
-  gameSessionID: string;
+  id: string;
   status: GameSessionStatus;
   playerOneID: string;
   playerTwoID: string;

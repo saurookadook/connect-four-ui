@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import './styles.css';
 
 export function LoadingState({
   className, // force formatting
