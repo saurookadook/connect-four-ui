@@ -1,39 +1,61 @@
 import combineReducers from '@saurookkadookk/react-utils-combine-reducers';
 
-import { REQUEST_GAME_SESSION_HISTORY, SET_GAME_SESSION_HISTORY } from '@/store';
-import { GameSessionHistoryItem } from '@/types/main';
+import { REQUEST_GAME_SESSIONS_HISTORY, SET_GAME_SESSIONS_HISTORY } from '@/store';
+import { GameSessionsHistoryItem } from '@/types/main';
 
-export type GameSessionHistoryStateSlice = {
-  sessions: GameSessionHistoryItem[];
+export type GameSessionsHistoryStateSlice = {
+  hasRequestInProgress: boolean;
+  sessions: GameSessionsHistoryItem[] | null;
 };
 
-type GameSessionHistorySessionsAction = combineReducers.ReducerAction<{
-  sessions?: GameSessionHistoryItem[];
+type GameSessionsHistorySessionsAction = combineReducers.ReducerAction<{
+  hasRequestInProgress?: GameSessionsHistoryStateSlice['hasRequestInProgress'];
+  sessions?: GameSessionsHistoryStateSlice['sessions'];
 }>;
 
-type CombinedGameSessionHistoryStateSlice = {
+type CombinedGameSessionsHistoryStateSlice = {
+  hasRequestInProgress: combineReducers.ArgsTuple<
+    GameSessionsHistoryStateSlice['hasRequestInProgress'],
+    GameSessionsHistorySessionsAction
+  >;
   sessions: combineReducers.ArgsTuple<
-    GameSessionHistoryStateSlice['sessions'],
-    GameSessionHistorySessionsAction
+    GameSessionsHistoryStateSlice['sessions'],
+    GameSessionsHistorySessionsAction
   >;
 };
 
-export const initialGameSessionHistoryStateSlice = {
-  sessions: [],
+export const initialGameSessionsHistoryStateSlice = {
+  hasRequestInProgress: false,
+  sessions: null,
 };
 
-const sessions: CombinedGameSessionHistoryStateSlice['sessions'] = [
+export const hasRequestInProgress: CombinedGameSessionsHistoryStateSlice['hasRequestInProgress'] = [
   (stateSlice, action) => {
     switch (action.type) {
-      case SET_GAME_SESSION_HISTORY:
+      case REQUEST_GAME_SESSIONS_HISTORY:
+        return true;
+      case SET_GAME_SESSIONS_HISTORY:
+        return false;
+      default:
+        return stateSlice;
+    }
+  },
+  initialGameSessionsHistoryStateSlice.hasRequestInProgress,
+];
+
+const sessions: CombinedGameSessionsHistoryStateSlice['sessions'] = [
+  (stateSlice, action) => {
+    switch (action.type) {
+      case SET_GAME_SESSIONS_HISTORY:
         return action.payload.sessions || [];
       default:
         return stateSlice;
     }
   },
-  initialGameSessionHistoryStateSlice.sessions,
+  initialGameSessionsHistoryStateSlice.sessions,
 ];
 
 export default combineReducers({
+  hasRequestInProgress,
   sessions,
 });

@@ -1,20 +1,25 @@
-import { REQUEST_GAME_SESSION_HISTORY, SET_GAME_SESSION_HISTORY } from '@/store';
-import type { BaseAction, GameSessionHistoryItem } from '@/types/main';
+import { BASE_API_SERVER_URL } from '@/constants';
+import { REQUEST_GAME_SESSIONS_HISTORY, SET_GAME_SESSIONS_HISTORY } from '@/store';
+import type { BaseAction, GameSessionsHistoryItem } from '@/types/main';
 
-type GameSessionHistoryData = {
-  sessions: GameSessionHistoryItem[];
+type GameSessionsHistoryData = {
+  sessions: GameSessionsHistoryItem[];
 };
 
-export async function fetchGameSessionHistory({
+export async function fetchGameSessionsHistory({
   dispatch, // force formatting
   playerID,
-}: BaseAction & { playerID: string }) {
-  dispatch({ type: REQUEST_GAME_SESSION_HISTORY });
+}: BaseAction & { playerID: string | null }) {
+  dispatch({ type: REQUEST_GAME_SESSIONS_HISTORY });
 
   let responseData = null;
 
   try {
-    const response = await fetch(`/game-session/history/${playerID}`);
+    // TODO: break `all` and `history` calls into separate actions
+    const requestPath =
+      playerID != null ? `/game-sessions/history/${playerID}` : '/game-sessions/all';
+    const requestURL = new URL(requestPath, BASE_API_SERVER_URL);
+    const response = await fetch(requestURL);
 
     if (!response.ok || response.status >= 400) {
       throw new Error(`[ERROR ${response.status}] Failed to fetch game session history`);
@@ -25,22 +30,22 @@ export async function fetchGameSessionHistory({
     console.error(error);
   }
 
-  return setGameSessionHistory({
+  return setGameSessionsHistory({
     dispatch,
-    gameSessionHistory: {
+    gameSessionsHistory: {
       sessions: responseData?.sessions || [],
     },
   });
 }
 
-export function setGameSessionHistory({
+export function setGameSessionsHistory({
   dispatch, // force formatting
-  gameSessionHistory,
-}: BaseAction & { gameSessionHistory: GameSessionHistoryData }) {
+  gameSessionsHistory,
+}: BaseAction & { gameSessionsHistory: GameSessionsHistoryData }) {
   dispatch({
-    type: SET_GAME_SESSION_HISTORY,
+    type: SET_GAME_SESSIONS_HISTORY,
     payload: {
-      gameSessionHistory,
+      gameSessionsHistory,
     },
   });
 }
