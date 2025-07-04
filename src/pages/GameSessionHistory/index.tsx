@@ -6,7 +6,7 @@ import { fetchGameSessionsHistory } from '@/store/game-sessions-history/actions'
 import { useAppStore } from '@/store';
 import './styles.css';
 
-export function GameSessionHistory() {
+export function GameSessionsHistory() {
   const { appState, appDispatch } = useAppStore();
   const { gameSessionsHistory, player } = appState;
 
