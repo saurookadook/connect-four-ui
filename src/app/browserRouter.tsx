@@ -4,7 +4,13 @@ import {
 } from 'react-router-dom';
 
 import { Root } from '@/layouts';
-import { ConnectFour, GameSessionsHistory, Home, Login, Register } from '@/pages';
+import {
+  ConnectFour, // force formatting
+  GameSessionsHistory,
+  Home,
+  Login,
+  Register,
+} from '@/pages';
 
 /**
  * @note possibilities for implementing protected/public routes
@@ -50,7 +56,7 @@ export const routerConfig: RouteObject[] = [
       {
         path: 'game-sessions-history',
         // @ts-expect-error: I hope this is just temporarily missing
-        label: 'Game Session History',
+        label: 'Game Sessions History',
         element: <GameSessionsHistory />,
       },
       {

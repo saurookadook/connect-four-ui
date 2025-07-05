@@ -4,7 +4,6 @@ import { LoadingState } from '@/components';
 import { FlexColumn } from '@/layouts';
 import { fetchGameSessionsHistory } from '@/store/game-sessions/actions';
 import { useAppStore } from '@/store';
-import './styles.css';
 
 export function PlayerGameSessions() {
   const { appState, appDispatch } = useAppStore();
