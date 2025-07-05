@@ -1,10 +1,41 @@
 import { BASE_API_SERVER_URL } from '@/constants';
-import { REQUEST_GAME_SESSIONS_HISTORY, SET_GAME_SESSIONS_HISTORY } from '@/store';
+import {
+  REQUEST_ALL_GAME_SESSIONS,
+  REQUEST_GAME_SESSIONS_HISTORY,
+  SET_ALL_GAME_SESSIONS,
+  SET_GAME_SESSIONS_HISTORY,
+} from '@/store';
 import type { BaseAction, GameSessionsHistoryItem } from '@/types/main';
 
 type GameSessionsHistoryData = {
   sessions: GameSessionsHistoryItem[];
 };
+
+export async function fetchAllGameSessions({ dispatch }: BaseAction) {
+  dispatch({ type: REQUEST_ALL_GAME_SESSIONS });
+
+  let responseData = null;
+
+  try {
+    const requestURL = new URL('/api/game-sessions/all', BASE_API_SERVER_URL);
+    const response = await fetch(requestURL);
+
+    if (!response.ok || response.status >= 400) {
+      throw new Error(`[ERROR ${response.status}] Failed to fetch game sessions`);
+    }
+
+    responseData = await response.json();
+  } catch (error) {
+    console.error(error);
+  }
+
+  return setAllGameSessions({
+    dispatch,
+    allGameSessions: {
+      sessions: responseData?.sessions || [],
+    },
+  });
+}
 
 export async function fetchGameSessionsHistory({
   dispatch, // force formatting
@@ -15,10 +46,10 @@ export async function fetchGameSessionsHistory({
   let responseData = null;
 
   try {
-    // TODO: break `all` and `history` calls into separate actions
-    const requestPath =
-      playerID != null ? `/api/game-sessions/history/${playerID}` : '/api/game-sessions/all';
-    const requestURL = new URL(requestPath, BASE_API_SERVER_URL);
+    const requestURL = new URL(
+      `/api/game-sessions/history/${playerID}`, // force formatting
+      BASE_API_SERVER_URL,
+    );
     const response = await fetch(requestURL);
 
     if (!response.ok || response.status >= 400) {
@@ -34,6 +65,18 @@ export async function fetchGameSessionsHistory({
     dispatch,
     gameSessionsHistory: {
       sessions: responseData?.sessions || [],
+    },
+  });
+}
+
+export function setAllGameSessions({
+  dispatch, // force formatting
+  allGameSessions,
+}: BaseAction & { allGameSessions: GameSessionsHistoryData }) {
+  dispatch({
+    type: SET_ALL_GAME_SESSIONS,
+    payload: {
+      allGameSessions,
     },
   });
 }
