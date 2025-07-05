@@ -18,7 +18,7 @@ export enum GameSessionStatus {
   COMPLETED = 'COMPLETED',
 }
 
-export type GameSessionsHistoryItem = {
+export type GameSessionsItem = {
   id: string;
   status: GameSessionStatus;
   playerOneID: string;
