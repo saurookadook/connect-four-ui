@@ -5,11 +5,7 @@ import {
   SET_ALL_GAME_SESSIONS,
   SET_GAME_SESSIONS_HISTORY,
 } from '@/store';
-import type { BaseAction, GameSessionsHistoryItem } from '@/types/main';
-
-type GameSessionsHistoryData = {
-  sessions: GameSessionsHistoryItem[];
-};
+import type { BaseAction, GameSessionsItem } from '@/types/main';
 
 export async function fetchAllGameSessions({ dispatch }: BaseAction) {
   dispatch({ type: REQUEST_ALL_GAME_SESSIONS });
@@ -31,8 +27,8 @@ export async function fetchAllGameSessions({ dispatch }: BaseAction) {
 
   return setAllGameSessions({
     dispatch,
-    allGameSessions: {
-      sessions: responseData?.sessions || [],
+    gameSessions: {
+      allPaginated: responseData?.sessions || [],
     },
   });
 }
@@ -63,32 +59,40 @@ export async function fetchGameSessionsHistory({
 
   return setGameSessionsHistory({
     dispatch,
-    gameSessionsHistory: {
-      sessions: responseData?.sessions || [],
+    gameSessions: {
+      playerHistory: responseData?.sessions || [],
     },
   });
 }
 
 export function setAllGameSessions({
   dispatch, // force formatting
-  allGameSessions,
-}: BaseAction & { allGameSessions: GameSessionsHistoryData }) {
+  gameSessions,
+}: BaseAction & {
+  gameSessions: {
+    allPaginated: GameSessionsItem[];
+  };
+}) {
   dispatch({
     type: SET_ALL_GAME_SESSIONS,
     payload: {
-      allGameSessions,
+      gameSessions,
     },
   });
 }
 
 export function setGameSessionsHistory({
   dispatch, // force formatting
-  gameSessionsHistory,
-}: BaseAction & { gameSessionsHistory: GameSessionsHistoryData }) {
+  gameSessions,
+}: BaseAction & {
+  gameSessions: {
+    playerHistory: GameSessionsItem[];
+  };
+}) {
   dispatch({
     type: SET_GAME_SESSIONS_HISTORY,
     payload: {
-      gameSessionsHistory,
+      gameSessions,
     },
   });
 }

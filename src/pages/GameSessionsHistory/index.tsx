@@ -1,43 +1,21 @@
-import { useEffect } from 'react';
-
-import { LoadingState } from '@/components';
-import { FlexColumn } from '@/layouts';
-import { fetchGameSessionsHistory } from '@/store/game-sessions-history/actions';
+import { AllGameSessions, PlayerGameSessions } from './components';
+import { FlexRow } from '@/layouts';
 import { useAppStore } from '@/store';
 import './styles.css';
 
 export function GameSessionsHistory() {
   const { appState, appDispatch } = useAppStore();
-  const { gameSessionsHistory, player } = appState;
-
-  useEffect(() => {
-    if (gameSessionsHistory.sessions == null) {
-      fetchGameSessionsHistory({
-        dispatch: appDispatch,
-        playerID: player.playerID,
-      });
-    }
-  }, [appDispatch, gameSessionsHistory.sessions, player.playerID]);
+  const { gameSessions, player } = appState;
 
   return (
-    <FlexColumn id="game-session-history">
-      <h2>{`🗒️ Game Session History 🗒️`}</h2>
+    <section id="game-sessions-history">
+      <h2>{`🗒️ Game Sessions History 🗒️`}</h2>
 
-      {gameSessionsHistory.sessions == null ? (
-        <LoadingState />
-      ) : (
-        gameSessionsHistory.sessions.map((gameSession, index) => {
-          const { id, playerOneID, playerTwoID, status } = gameSession;
-          return (
-            <FlexColumn key={id} className="game-session-history-item">
-              <h3>{`Game Session ID: ${id}`}</h3>
-              <span>{`Player 1 -- '${playerOneID}'`}</span>
-              <span>{`Player 2 -- '${playerTwoID}'`}</span>
-              <span>{`Status: ${status}`}</span>
-            </FlexColumn>
-          );
-        })
-      )}
-    </FlexColumn>
+      <FlexRow>
+        <AllGameSessions />
+
+        <PlayerGameSessions />
+      </FlexRow>
+    </section>
   );
 }
