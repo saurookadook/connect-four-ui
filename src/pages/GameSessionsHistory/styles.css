@@ -18,17 +18,30 @@
         display: flex;
         flex-grow: 1;
         flex-shrink: 0;
+
+        & .game-session-history-item {
+            background: var(--butterfly-blue-fill-0\.5);
+            border: 1px solid var(--blue-fill);
+            border-top: 0px;
+            border-bottom: 0px;
+            /* border-radius: 5px; */
+            box-sizing: border-box;
+            padding: 1rem 1.5rem;
+            width: 100%;
+
+            &:first-child {
+                border-top: 1px solid var(--blue-fill);
+            }
+
+            &:last-child {
+                border-bottom: 1px solid var(--blue-fill);
+            }
+
+            &:nth-child(2n - 1) {
+                background: #ffffff;
+            }
+        }
     }
 }
 
-.game-session-history-item {
-    background: var(--butterfly-blue-fill-0\.5);
-    border: 1px solid var(--blue-fill);
-    border-radius: 5px;
-    padding: 1rem 1.5rem;
-    width: fit-content;
 
-    &:not(:last-child) {
-        margin-bottom: 0.875rem;
-    }
-}

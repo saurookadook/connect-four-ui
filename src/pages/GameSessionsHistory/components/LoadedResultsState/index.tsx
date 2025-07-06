@@ -14,7 +14,7 @@ export function LoadedResultsState({
         gameSessions.map((gameSession, index) => {
           const { id, playerOneID, playerTwoID, status } = gameSession;
           return (
-            <FlexColumn key={id} className="all-game-sessions-item">
+            <FlexColumn key={id} className="game-session-history-item">
               <h3>{`Game Session ID: ${id}`}</h3>
               <span>{`Player 1 -- '${playerOneID}'`}</span>
               <span>{`Player 2 -- '${playerTwoID}'`}</span>
