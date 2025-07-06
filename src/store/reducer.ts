@@ -4,6 +4,10 @@ import connectFourReducer, {
   initialConnectFourStateSlice,
   type ConnectFourStateSlice,
 } from '@/store/connect-four/reducer';
+import gameSessionsReducer, {
+  initialGameSessionsStateSlice,
+  type GameSessionsStateSlice,
+} from '@/store/game-sessions/reducer';
 import messagesReducer, {
   initialMessagesStateSlice,
   type MessagesStateSlice,
@@ -15,6 +19,7 @@ import playerReducer, {
 
 export type AppState = {
   connectFour: ConnectFourStateSlice;
+  gameSessions: GameSessionsStateSlice;
   messages: MessagesStateSlice;
   player: PlayerStateSlice;
 };
@@ -22,12 +27,14 @@ export type AppState = {
 
 export const initialAppState = {
   connectFour: initialConnectFourStateSlice,
+  gameSessions: initialGameSessionsStateSlice,
   messages: initialMessagesStateSlice,
   player: initialPlayerStateSlice,
 };
 
 export default combineReducers({
   connectFour: connectFourReducer,
+  gameSessions: gameSessionsReducer,
   messages: messagesReducer,
   player: playerReducer,
 });
