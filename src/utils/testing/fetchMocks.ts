@@ -1,6 +1,7 @@
 import { vi } from 'vitest';
 
 import { mockPlayers } from '@/__mocks__/playerMocks';
+import { BASE_API_SERVER_URL } from '@/constants';
 
 const originalFetch = global.fetch;
 
@@ -20,7 +21,7 @@ function handlePostRequest(url: string, options: RequestInit) {
   let playerDetails;
 
   switch (url) {
-    case `${window.location.origin}/auth/register`:
+    case `${BASE_API_SERVER_URL}/api/auth/register`:
       playerDetails = findPlayerByUsernameAndPassword(jsonBody.username, jsonBody.password);
       if (playerDetails) {
         responseData = {
@@ -35,7 +36,7 @@ function handlePostRequest(url: string, options: RequestInit) {
         };
       }
       break;
-    case `${window.location.origin}/auth/login`:
+    case `${BASE_API_SERVER_URL}/api/auth/login`:
       playerDetails = findPlayerByUsernameAndPassword(jsonBody.username, jsonBody.password);
       if (playerDetails) {
         responseData = {
