@@ -1,5 +1,6 @@
-import { UUID } from 'crypto';
-import { GameSessionStatus } from '@/types/main';
+import { randomUUID, type UUID } from 'crypto';
+
+import { GameSessionStatus } from '@/types/main.d';
 import { mockPlayers } from './playerMocks';
 
 type GameSessionMock = {
@@ -18,15 +19,16 @@ const playerCombinations = [
   [mockPlayers[2].playerID, mockPlayers[1].playerID],
 ];
 
-export const unstartedGameSessions: GameSessionMock[] = playerCombinations.map(
+export const unstartedGameSessionsMock: GameSessionMock[] = playerCombinations.map(
   ([playerOneID, playerTwoID]) => {
     return {
+      id: randomUUID(),
+      moves: [],
       playerOneID,
       playerTwoID,
-      moves: [],
       status: GameSessionStatus.ACTIVE,
     };
   },
 );
 
-export const allGameSessionsSeedData: GameSessionMock[] = [...unstartedGameSessions];
+export const allGameSessionsMock: GameSessionMock[] = [...unstartedGameSessionsMock];

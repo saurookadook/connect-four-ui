@@ -14,7 +14,7 @@ export async function fetchAllGameSessions({ dispatch }: BaseAction) {
 
   try {
     const requestURL = new URL('/api/game-sessions/all', BASE_API_SERVER_URL);
-    const response = await fetch(requestURL);
+    const response = await fetch(requestURL, { method: 'GET' });
 
     if (!response.ok || response.status >= 400) {
       throw new Error(`[ERROR ${response.status}] Failed to fetch game sessions`);
@@ -46,7 +46,7 @@ export async function fetchGameSessionsHistory({
       `/api/game-sessions/history/${playerID}`, // force formatting
       BASE_API_SERVER_URL,
     );
-    const response = await fetch(requestURL);
+    const response = await fetch(requestURL, { method: 'GET' });
 
     if (!response.ok || response.status >= 400) {
       throw new Error(`[ERROR ${response.status}] Failed to fetch game session history`);
