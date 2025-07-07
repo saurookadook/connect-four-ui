@@ -31,4 +31,12 @@
         padding: 2rem;
         text-align: center;
     }
+
+    & > .card {
+        overflow: hidden;
+    }
+
+    & section {
+        overflow: auto;
+    }
 }
