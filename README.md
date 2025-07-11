@@ -1,9 +1,14 @@
 # ConnectFour UI
 
-> ⚠️ PERMANENTLY MOVED ⚠️
-> &nbsp;
-> The contents of this repo have been moved to [the `connect-four-app` repo](https://github.com/saurookadook/connect-four-app) (see [PR 15](https://github.com/saurookadook/connect-four-app/pull/15))
-> &nbsp;
+<blockquote>
+<p>⚠️ PERMANENTLY MOVED ⚠️</p>
+<p>
+
+The contents of this repo have been moved to [the `connect-four-app` repo](https://github.com/saurookadook/connect-four-app) (see [PR 15](https://github.com/saurookadook/connect-four-app/pull/15))
+
+</p>
+</blockquote>
+
 
 ## Generating Certs
 
