@@ -1,6 +1,8 @@
 # ConnectFour UI
 
-🚧 **Under Construction** 🚧
+> ⚠️ PERMANENTLY MOVED ⚠️
+> The contents of this repo have been moved to [the `connect-four-app` repo](https://github.com/saurookadook/connect-four-app) (see [PR 15](https://github.com/saurookadook/connect-four-app/pull/15))
+> &nbsp;
 
 ## Generating Certs
 
